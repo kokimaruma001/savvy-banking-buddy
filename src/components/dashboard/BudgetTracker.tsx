@@ -1,0 +1,114 @@
+
+import React from 'react';
+import { Progress } from "@/components/ui/progress";
+
+const BudgetTracker = () => {
+  const budgetCategories = [
+    { 
+      id: 1, 
+      name: "Housing", 
+      current: 1200, 
+      limit: 1500, 
+      percentage: (1200 / 1500) * 100,
+      color: "bg-blue-500" 
+    },
+    { 
+      id: 2, 
+      name: "Food & Groceries", 
+      current: 650, 
+      limit: 700, 
+      percentage: (650 / 700) * 100,
+      color: "bg-green-500" 
+    },
+    { 
+      id: 3, 
+      name: "Transportation", 
+      current: 310, 
+      limit: 400, 
+      percentage: (310 / 400) * 100,
+      color: "bg-yellow-500" 
+    },
+    { 
+      id: 4, 
+      name: "Entertainment", 
+      current: 280, 
+      limit: 250, 
+      percentage: (280 / 250) * 100,
+      color: "bg-purple-500" 
+    },
+    { 
+      id: 5, 
+      name: "Utilities", 
+      current: 190, 
+      limit: 300, 
+      percentage: (190 / 300) * 100,
+      color: "bg-pink-500" 
+    },
+    { 
+      id: 6, 
+      name: "Shopping", 
+      current: 410, 
+      limit: 350, 
+      percentage: (410 / 350) * 100,
+      color: "bg-red-500" 
+    }
+  ];
+
+  return (
+    <div className="space-y-5">
+      {budgetCategories.map((category) => (
+        <div key={category.id} className="space-y-2">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div className={`w-3 h-3 rounded-full ${category.color} mr-2`}></div>
+              <span className="font-medium text-sm">{category.name}</span>
+            </div>
+            <div className="text-right">
+              <span className={`text-sm font-medium ${category.current > category.limit ? 'text-red-500' : 'text-foreground'}`}>
+                ${category.current.toLocaleString()} 
+                <span className="text-muted-foreground"> / ${category.limit.toLocaleString()}</span>
+              </span>
+            </div>
+          </div>
+          
+          <div className="relative">
+            <Progress 
+              value={Math.min(category.percentage, 100)} 
+              className={`h-2 ${category.current > category.limit ? 'bg-red-200' : 'bg-gray-200'}`}
+            />
+            <div 
+              className={`absolute top-0 h-2 rounded-full ${category.color}`} 
+              style={{ 
+                width: `${Math.min(category.percentage, 100)}%`,
+                opacity: category.current > category.limit ? '0.7' : '1'
+              }}
+            ></div>
+          </div>
+          
+          {category.current > category.limit && (
+            <p className="text-xs text-red-500">
+              You've exceeded your budget by ${(category.current - category.limit).toLocaleString()}
+            </p>
+          )}
+        </div>
+      ))}
+      
+      <div className="mt-8 p-4 rounded-lg bg-primary/5 border border-primary/20">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="font-semibold">Total Budget</h3>
+          <div>
+            <span className="text-foreground font-medium">$3,040</span>
+            <span className="text-muted-foreground"> / $3,500</span>
+          </div>
+        </div>
+        <Progress value={(3040 / 3500) * 100} className="h-2 bg-gray-200" />
+        <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+          <span>87% of monthly budget used</span>
+          <span>$460 remaining</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BudgetTracker;
