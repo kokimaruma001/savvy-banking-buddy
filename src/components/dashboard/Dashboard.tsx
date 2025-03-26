@@ -36,10 +36,10 @@ const Dashboard = () => {
       {/* Overview Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
-          { title: "Total Balance", value: "$16,520.42", change: "+2.5%", icon: <DollarSign className="text-primary" />, trend: "up" },
-          { title: "Monthly Spending", value: "$2,340.15", change: "-4.3%", icon: <TrendingDown className="text-green-500" />, trend: "down" },
-          { title: "Monthly Savings", value: "$1,200.00", change: "+10.5%", icon: <TrendingUp className="text-green-500" />, trend: "up" },
-          { title: "Investment Value", value: "$8,425.87", change: "+1.8%", icon: <ArrowUpRight className="text-primary" />, trend: "up" }
+          { title: "Total Balance", value: "R16,520.42", change: "+2.5%", icon: <DollarSign className="text-primary" />, trend: "up" },
+          { title: "Monthly Spending", value: "R2,340.15", change: "-4.3%", icon: <TrendingDown className="text-green-500" />, trend: "down" },
+          { title: "Monthly Savings", value: "R1,200.00", change: "+10.5%", icon: <TrendingUp className="text-green-500" />, trend: "up" },
+          { title: "Investment Value", value: "R8,425.87", change: "+1.8%", icon: <ArrowUpRight className="text-primary" />, trend: "up" }
         ].map((item, idx) => (
           <Card key={idx} className="glass overflow-hidden relative">
             <CardHeader className="pb-2">
@@ -157,7 +157,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <span className={`font-medium ${transaction.amount > 0 ? 'text-green-500' : ''}`}>
-                    {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
+                    {transaction.amount > 0 ? '+' : ''}R{Math.abs(transaction.amount).toFixed(2)}
                   </span>
                 </div>
               ))}

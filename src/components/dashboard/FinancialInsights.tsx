@@ -39,7 +39,7 @@ const FinancialInsights = () => {
           <p className="text-sm font-medium">{label}</p>
           {payload.map((entry: any, index: number) => (
             <p key={`item-${index}`} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: ${entry.value}
+              {entry.name}: R{entry.value}
             </p>
           ))}
         </div>
@@ -96,7 +96,7 @@ const FinancialInsights = () => {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `$${value}`} />
+                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `R${value}`} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area 
                   type="monotone" 
@@ -140,7 +140,7 @@ const FinancialInsights = () => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => `$${value}`} />
+                  <Tooltip formatter={(value) => `R${value}`} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -153,9 +153,9 @@ const FinancialInsights = () => {
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e5e7eb" />
-                  <XAxis type="number" axisLine={false} tickLine={false} tickFormatter={(value) => `$${value}`} />
+                  <XAxis type="number" axisLine={false} tickLine={false} tickFormatter={(value) => `R${value}`} />
                   <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} width={80} />
-                  <Tooltip formatter={(value) => `$${value}`} />
+                  <Tooltip formatter={(value) => `R${value}`} />
                   <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                     {categoryData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -182,7 +182,7 @@ const FinancialInsights = () => {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `$${value}`} />
+                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `R${value}`} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area 
                   type="monotone" 

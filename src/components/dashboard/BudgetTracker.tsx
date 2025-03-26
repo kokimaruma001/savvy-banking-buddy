@@ -65,8 +65,8 @@ const BudgetTracker = () => {
             </div>
             <div className="text-right">
               <span className={`text-sm font-medium ${category.current > category.limit ? 'text-red-500' : 'text-foreground'}`}>
-                ${category.current.toLocaleString()} 
-                <span className="text-muted-foreground"> / ${category.limit.toLocaleString()}</span>
+                R{category.current.toLocaleString()} 
+                <span className="text-muted-foreground"> / R{category.limit.toLocaleString()}</span>
               </span>
             </div>
           </div>
@@ -87,7 +87,7 @@ const BudgetTracker = () => {
           
           {category.current > category.limit && (
             <p className="text-xs text-red-500">
-              You've exceeded your budget by ${(category.current - category.limit).toLocaleString()}
+              You've exceeded your budget by R{(category.current - category.limit).toLocaleString()}
             </p>
           )}
         </div>
@@ -97,14 +97,14 @@ const BudgetTracker = () => {
         <div className="flex justify-between items-center mb-2">
           <h3 className="font-semibold">Total Budget</h3>
           <div>
-            <span className="text-foreground font-medium">$3,040</span>
-            <span className="text-muted-foreground"> / $3,500</span>
+            <span className="text-foreground font-medium">R3,040</span>
+            <span className="text-muted-foreground"> / R3,500</span>
           </div>
         </div>
         <Progress value={(3040 / 3500) * 100} className="h-2 bg-gray-200" />
         <div className="mt-2 flex justify-between text-xs text-muted-foreground">
           <span>87% of monthly budget used</span>
-          <span>$460 remaining</span>
+          <span>R460 remaining</span>
         </div>
       </div>
     </div>
