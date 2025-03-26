@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { BookOpen, Star, Clock, Search, Award, Play, CheckCircle, ChevronRight, Filter } from 'lucide-react';
+import { BookOpen, Star, Clock, Search, Award, Play, CheckCircle, ChevronRight, Filter, TrendingUp } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
@@ -367,7 +366,7 @@ const LearningHub = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     { name: "Loan Calculator", icon: <Calculator /> },
-                    { name: "Retirement Planner", icon: <TrendingUp /> },
+                    { name: "Retirement Planner", icon: <TrendingUp size={24} /> },
                     { name: "Budget Template", icon: <FileSpreadsheet /> },
                     { name: "Tax Estimator", icon: <DollarSign /> }
                   ].map((tool, idx) => (

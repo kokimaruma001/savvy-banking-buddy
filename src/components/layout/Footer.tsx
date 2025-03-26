@@ -1,6 +1,5 @@
-
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, GitHub, ChevronRight } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Github, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
   return (
