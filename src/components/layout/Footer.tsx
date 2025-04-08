@@ -71,8 +71,8 @@ const Footer = () => {
             <h3 className="text-md font-semibold mb-6">Contact Us</h3>
             <ul className="space-y-3">
               <li className="text-muted-foreground">
-                1234 Financial Street, Suite 567<br />
-                San Francisco, CA 94103
+                P.O. BOX 650, Shiluvane <br />
+                Limpopo, SA 0873
               </li>
               <li className="text-muted-foreground">
                 <span className="font-medium text-foreground">Email:</span> support@savvy.com
