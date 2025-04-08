@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -366,7 +367,7 @@ const LearningHub = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     { name: "Loan Calculator", icon: <Calculator /> },
-                    { name: "Retirement Planner", icon: <TrendingUp size={24} /> },
+                    { name: "Retirement Planner", icon: <TrendingUp className="size-6" /> },
                     { name: "Budget Template", icon: <FileSpreadsheet /> },
                     { name: "Tax Estimator", icon: <DollarSign /> }
                   ].map((tool, idx) => (
