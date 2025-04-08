@@ -75,7 +75,7 @@ const Hero = () => {
                   {/* Balance Card */}
                   <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-primary to-blue-600 text-white">
                     <p className="text-sm font-medium opacity-80">Total Balance</p>
-                    <h4 className="text-2xl font-bold my-2">$12,345.67</h4>
+                    <h4 className="text-2xl font-bold my-2">R12,345.67</h4>
                     <div className="flex justify-between text-xs opacity-80">
                       <span>+2.4% from last month</span>
                       <span>Updated just now</span>
@@ -85,9 +85,9 @@ const Hero = () => {
                   {/* Account Cards */}
                   <div className="space-y-3">
                     {[
-                      { name: 'Checking Account', balance: '$4,250.00', color: 'bg-blue-100' },
-                      { name: 'Savings Account', balance: '$8,095.67', color: 'bg-green-100' },
-                      { name: 'Investment Account', balance: '$5,621.33', color: 'bg-purple-100' }
+                      { name: 'Checking Account', balance: 'R4,250.00', color: 'bg-blue-100' },
+                      { name: 'Savings Account', balance: 'R8,095.67', color: 'bg-green-100' },
+                      { name: 'Investment Account', balance: 'R5,621.33', color: 'bg-purple-100' }
                     ].map((account, idx) => (
                       <div key={idx} className={`p-3 rounded-lg flex justify-between items-center ${account.color}`}>
                         <div>
