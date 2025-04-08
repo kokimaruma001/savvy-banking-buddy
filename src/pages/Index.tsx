@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -7,8 +7,11 @@ import Features from '../components/home/Features';
 import Testimonials from '../components/home/Testimonials';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, PiggyBank, ShieldCheck, GraduationCap } from 'lucide-react';
+import { AuthDialog } from '@/components/auth/AuthDialog';
 
 const Index = () => {
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -109,6 +112,7 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   className="rounded-full group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/20"
+                  onClick={() => setShowAuthDialog(true)}
                 >
                   <span className="absolute inset-0 bg-white/20 transform -translate-x-full hover:translate-x-0 transition-transform duration-300 ease-out"></span>
                   <span className="relative flex items-center">
@@ -139,6 +143,13 @@ const Index = () => {
       </main>
       
       <Footer />
+      
+      {/* Auth Dialog */}
+      <AuthDialog 
+        isOpen={showAuthDialog}
+        onClose={() => setShowAuthDialog(false)}
+        defaultTab="signup"
+      />
     </div>
   );
 };

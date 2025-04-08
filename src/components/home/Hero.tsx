@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronRight } from 'lucide-react';
+import { AuthDialog } from '../auth/AuthDialog';
 
 const Hero = () => {
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  
   return (
     <section className="min-h-screen pt-32 pb-16 overflow-hidden relative">
       {/* Background Elements */}
@@ -31,7 +34,11 @@ const Hero = () => {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Button size="lg" className="rounded-full group">
+              <Button 
+                size="lg" 
+                className="rounded-full group"
+                onClick={() => setShowAuthDialog(true)}
+              >
                 Get Started
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -122,6 +129,13 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      
+      {/* Auth Dialog */}
+      <AuthDialog 
+        isOpen={showAuthDialog}
+        onClose={() => setShowAuthDialog(false)}
+        defaultTab="signup"
+      />
     </section>
   );
 };
