@@ -106,11 +106,21 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="rounded-full group">
-                  Get Started for Free
-                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  size="lg" 
+                  className="rounded-full group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/20"
+                >
+                  <span className="absolute inset-0 bg-white/20 transform -translate-x-full hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                  <span className="relative flex items-center">
+                    Get Started for Free
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="rounded-full hover:bg-secondary/20 transition-all duration-300"
+                >
                   Schedule a Demo
                 </Button>
               </div>
@@ -118,7 +128,7 @@ const Index = () => {
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
                 {["No credit card required", "Free 30-day trial", "Cancel anytime"].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
-                    <CheckCircle size={16} className="text-primary" />
+                    <CheckCircle className="h-4 w-4 text-primary" />
                     <span className="text-sm">{item}</span>
                   </div>
                 ))}
