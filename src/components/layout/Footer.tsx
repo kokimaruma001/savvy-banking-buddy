@@ -78,7 +78,7 @@ const Footer = () => {
                 <span className="font-medium text-foreground">Email:</span> support@savvy.com
               </li>
               <li className="text-muted-foreground">
-                <span className="font-medium text-foreground">Phone:</span> +1 (555) 123-4567
+                <span className="font-medium text-foreground">Phone:</span> +27 (65) 894 5667
               </li>
             </ul>
           </div>
