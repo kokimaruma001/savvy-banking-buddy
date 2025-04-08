@@ -12,19 +12,26 @@ import { AuthDialog } from '@/components/auth/AuthDialog';
 const Index = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <Hero />
+        <Hero onHowItWorksClick={() => scrollToSection('how-it-works')} />
         
         {/* Features Section */}
         <Features />
         
         {/* How It Works Section */}
-        <section className="py-24 bg-gradient-to-b from-background to-secondary/20 relative">
+        <section id="how-it-works" className="py-24 bg-gradient-to-b from-background to-secondary/20 relative">
           {/* Background Elements */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute right-[20%] bottom-[20%] w-[30%] h-[30%] rounded-full bg-blue-100/30 blur-3xl" />

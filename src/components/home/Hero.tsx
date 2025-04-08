@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { AuthDialog } from '../auth/AuthDialog';
 
-const Hero = () => {
+interface HeroProps {
+  onHowItWorksClick?: () => void;
+}
+
+const Hero = ({ onHowItWorksClick }: HeroProps) => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   
   return (
@@ -42,7 +46,12 @@ const Hero = () => {
                 Get Started
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="rounded-full"
+                onClick={onHowItWorksClick}
+              >
                 How It Works
               </Button>
             </div>
