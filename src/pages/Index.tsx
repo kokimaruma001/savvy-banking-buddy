@@ -24,7 +24,7 @@ const Index = () => {
         <Features />
         
         {/* How It Works Section */}
-        <section className="py-24 bg-gradient-to-b from-background to-secondary/20 relative">
+        <section id="how-it-works" className="py-24 bg-gradient-to-b from-background to-secondary/20 relative">
           {/* Background Elements */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute right-[20%] bottom-[20%] w-[30%] h-[30%] rounded-full bg-blue-100/30 blur-3xl" />
@@ -124,6 +124,12 @@ const Index = () => {
                   variant="outline" 
                   size="lg" 
                   className="rounded-full hover:bg-secondary/20 transition-all duration-300"
+                  onClick={() => {
+                    const howItWorksSection = document.getElementById('how-it-works');
+                    if (howItWorksSection) {
+                      howItWorksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                 >
                   Schedule a Demo
                 </Button>

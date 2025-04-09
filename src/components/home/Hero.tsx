@@ -8,6 +8,13 @@ import { AuthDialog } from '../auth/AuthDialog';
 const Hero = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   
+  const scrollToHowItWorks = () => {
+    const howItWorksSection = document.getElementById('how-it-works');
+    if (howItWorksSection) {
+      howItWorksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  
   return (
     <section className="min-h-screen pt-32 pb-16 overflow-hidden relative">
       {/* Background Elements */}
@@ -42,7 +49,12 @@ const Hero = () => {
                 Get Started
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="rounded-full"
+                onClick={scrollToHowItWorks}
+              >
                 How It Works
               </Button>
             </div>
