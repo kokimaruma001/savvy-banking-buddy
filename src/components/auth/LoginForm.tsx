@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -6,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from '@/context/AuthContext';
 import {
   Form,
   FormControl,
@@ -24,13 +24,14 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 interface LoginFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (data: LoginFormValues) => void;
 }
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
+  const { login } = useAuth();
   
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -43,11 +44,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   async function onSubmit(data: LoginFormValues) {
     setIsLoading(true);
     try {
-      // Here you would typically connect to an authentication service
-      console.log("Login attempt with:", data);
-      
-      // For now, we'll simulate a successful login after a short delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await login(data.email, data.password);
       
       // Show success message
       toast({
@@ -57,7 +54,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       
       // Trigger the onSuccess callback if provided
       if (onSuccess) {
-        onSuccess();
+        onSuccess(data);
       }
     } catch (error) {
       console.error("Login error:", error);

@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, LogOut, User } from 'lucide-react';
 import { AuthDialog } from '@/components/auth/AuthDialog';
 import { useAuth } from '@/context/AuthContext';
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +20,7 @@ const Navbar = () => {
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [activeAuthTab, setActiveAuthTab] = useState<"login" | "signup">("login");
   const location = useLocation();
+  const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
   
   // Change navbar style on scroll
@@ -49,6 +50,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+    toast.success("Logged out successfully");
+    navigate('/');
   };
 
   return (

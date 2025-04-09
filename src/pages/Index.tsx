@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
@@ -8,9 +9,19 @@ import Testimonials from '../components/home/Testimonials';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, PiggyBank, ShieldCheck, GraduationCap } from 'lucide-react';
 import { AuthDialog } from '@/components/auth/AuthDialog';
+import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
   
   return (
     <div className="min-h-screen flex flex-col">

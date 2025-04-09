@@ -1,5 +1,6 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
@@ -11,6 +12,7 @@ import {
 import { LoginForm } from './LoginForm';
 import { SignUpForm } from './SignUpForm';
 import { useAuth } from '@/context/AuthContext';
+import { toast } from "sonner";
 
 interface AuthDialogProps {
   isOpen: boolean;
@@ -24,12 +26,27 @@ export function AuthDialog({
   defaultTab = "login" 
 }: AuthDialogProps) {
   const [activeTab, setActiveTab] = useState<"login" | "signup">(defaultTab);
-  const { login, signup } = useAuth();
+  const { isAuthenticated, login, signup } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Handle successful authentication and redirect user
+  useEffect(() => {
+    if (isAuthenticated && isOpen) {
+      const from = location.state?.from?.pathname || "/dashboard";
+      toast.success("Authentication successful", {
+        description: "You are now logged in"
+      });
+      
+      // Close dialog and navigate
+      onClose();
+      navigate(from);
+    }
+  }, [isAuthenticated, isOpen, navigate, onClose, location]);
 
   const handleLoginSuccess = async (formData: { email: string, password: string }) => {
     try {
       await login(formData.email, formData.password);
-      onClose();
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -38,7 +55,6 @@ export function AuthDialog({
   const handleSignupSuccess = async (formData: { name: string, email: string, password: string }) => {
     try {
       await signup(formData.name, formData.email, formData.password);
-      onClose();
     } catch (error) {
       console.error("Signup failed:", error);
     }
@@ -65,11 +81,11 @@ export function AuthDialog({
           </TabsList>
           
           <TabsContent value="login" className="mt-4">
-            <LoginForm onSuccess={onClose} />
+            <LoginForm onSuccess={handleLoginSuccess} />
           </TabsContent>
           
           <TabsContent value="signup" className="mt-4">
-            <SignUpForm onSuccess={onClose} />
+            <SignUpForm onSuccess={handleSignupSuccess} />
           </TabsContent>
         </Tabs>
       </DialogContent>
