@@ -1,9 +1,10 @@
+
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
+import { LoginForm } from "./LoginForm";
+import { SignUpForm } from "./SignUpForm";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";

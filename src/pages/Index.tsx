@@ -8,7 +8,7 @@ import Features from '../components/home/Features';
 import Testimonials from '../components/home/Testimonials';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, PiggyBank, ShieldCheck, GraduationCap } from 'lucide-react';
-import { AuthDialog } from '@/components/auth/AuthDialog';
+import AuthDialog from '@/components/auth/AuthDialog';
 import { useAuth } from '@/context/AuthContext';
 import { ScheduleDialog } from '@/components/home/ScheduleDialog';
 
@@ -160,9 +160,7 @@ const Index = () => {
       
       {/* Auth Dialog */}
       <AuthDialog 
-        isOpen={showAuthDialog}
-        onClose={() => setShowAuthDialog(false)}
-        defaultTab="signup"
+        showSignUp={true}
       />
       
       {/* Schedule Dialog */}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, LogOut, User } from 'lucide-react';
-import { AuthDialog } from '@/components/auth/AuthDialog';
+import AuthDialog from '@/components/auth/AuthDialog';
 import { useAuth } from '@/context/AuthContext';
 import { toast } from "sonner";
 import {
@@ -221,9 +221,7 @@ const Navbar = () => {
 
       {/* Auth Dialog */}
       <AuthDialog 
-        isOpen={authDialogOpen} 
-        onClose={() => setAuthDialogOpen(false)}
-        defaultTab={activeAuthTab}
+        showSignUp={activeAuthTab === "signup"}
       />
     </>
   );

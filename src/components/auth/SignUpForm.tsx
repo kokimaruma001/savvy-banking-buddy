@@ -27,7 +27,7 @@ const signUpSchema = z.object({
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 interface SignUpFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (data: SignUpFormValues) => void;
 }
 
 export function SignUpForm({ onSuccess }: SignUpFormProps) {
@@ -61,7 +61,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
       
       // Trigger the onSuccess callback if provided
       if (onSuccess) {
-        onSuccess();
+        onSuccess(data);
       }
     } catch (error) {
       console.error("Sign up error:", error);
@@ -180,3 +180,5 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
     </Form>
   );
 }
+
+export default SignUpForm;

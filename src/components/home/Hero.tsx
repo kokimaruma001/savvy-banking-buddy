@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronRight } from 'lucide-react';
-import { AuthDialog } from '../auth/AuthDialog';
+import AuthDialog from '../auth/AuthDialog';
 
 const Hero = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
@@ -144,9 +144,7 @@ const Hero = () => {
       
       {/* Auth Dialog */}
       <AuthDialog 
-        isOpen={showAuthDialog}
-        onClose={() => setShowAuthDialog(false)}
-        defaultTab="signup"
+        showSignUp={true}
       />
     </section>
   );
