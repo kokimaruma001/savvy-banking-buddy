@@ -10,9 +10,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, PiggyBank, ShieldCheck, GraduationCap } from 'lucide-react';
 import { AuthDialog } from '@/components/auth/AuthDialog';
 import { useAuth } from '@/context/AuthContext';
+import { ScheduleDialog } from '@/components/home/ScheduleDialog';
 
 const Index = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [showScheduleDialog, setShowScheduleDialog] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   
@@ -135,12 +137,7 @@ const Index = () => {
                   variant="outline" 
                   size="lg" 
                   className="rounded-full hover:bg-secondary/20 transition-all duration-300"
-                  onClick={() => {
-                    const howItWorksSection = document.getElementById('how-it-works');
-                    if (howItWorksSection) {
-                      howItWorksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
+                  onClick={() => setShowScheduleDialog(true)}
                 >
                   Schedule a Demo
                 </Button>
@@ -166,6 +163,12 @@ const Index = () => {
         isOpen={showAuthDialog}
         onClose={() => setShowAuthDialog(false)}
         defaultTab="signup"
+      />
+      
+      {/* Schedule Dialog */}
+      <ScheduleDialog
+        isOpen={showScheduleDialog}
+        onClose={() => setShowScheduleDialog(false)}
       />
     </div>
   );
