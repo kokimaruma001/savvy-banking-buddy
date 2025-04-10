@@ -1,91 +1,109 @@
-
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { LoginForm } from './LoginForm';
-import { SignUpForm } from './SignUpForm';
-import { useAuth } from '@/context/AuthContext';
-import { toast } from "sonner";
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface AuthDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  defaultTab?: "login" | "signup";
+  variant?: "default" | "outline" | "destructive" | "secondary" | "ghost" | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  showSignUp?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+  asChild?: boolean;
 }
 
-export function AuthDialog({ 
-  isOpen, 
-  onClose,
-  defaultTab = "login" 
+export default function AuthDialog({
+  variant = "default",
+  size = "default",
+  showSignUp = true,
+  className,
+  children,
+  asChild = false,
 }: AuthDialogProps) {
-  const [activeTab, setActiveTab] = useState<"login" | "signup">(defaultTab);
-  const { isAuthenticated, login, signup } = useAuth();
+  const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"login" | "signup">(
+    showSignUp ? "signup" : "login"
+  );
+  const { login, signup } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // Handle successful authentication and redirect user
-  useEffect(() => {
-    if (isAuthenticated && isOpen) {
-      const from = location.state?.from?.pathname || "/dashboard";
-      toast.success("Authentication successful", {
-        description: "You are now logged in"
-      });
-      
-      // Close dialog and navigate
-      onClose();
-      navigate(from);
-    }
-  }, [isAuthenticated, isOpen, navigate, onClose, location]);
+  const { toast } = useToast();
 
-  const handleLoginSuccess = async (formData: { email: string, password: string }) => {
+  const from = location.state?.from?.pathname || "/dashboard";
+
+  const handleLoginSuccess = () => {
+    setOpen(false);
+    navigate(from);
+    toast({
+      title: "Welcome back!",
+      description: "You have successfully logged in.",
+    });
+  };
+
+  const handleSignupSuccess = () => {
+    setOpen(false);
+    navigate(from);
+    toast({
+      title: "Account created!",
+      description: "Your account has been created successfully.",
+    });
+  };
+
+  // Fix type error by setting proper function signature
+  const handleLogin = async (formData: { email: string; password: string }) => {
     try {
       await login(formData.email, formData.password);
+      handleLoginSuccess();
     } catch (error) {
-      console.error("Login failed:", error);
+      toast({
+        title: "Error",
+        description: "Failed to login. Please check your credentials.",
+        variant: "destructive",
+      });
     }
   };
 
-  const handleSignupSuccess = async (formData: { name: string, email: string, password: string }) => {
+  // Fix type error by setting proper function signature
+  const handleSignup = async (formData: { name: string; email: string; password: string }) => {
     try {
       await signup(formData.name, formData.email, formData.password);
+      handleSignupSuccess();
     } catch (error) {
-      console.error("Signup failed:", error);
+      toast({
+        title: "Error",
+        description: "Failed to create account. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild={asChild}>
+        <Button variant={variant} size={size} className={className}>
+          {children || "Sign In / Sign Up"}
+        </Button>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-center">
-            {activeTab === "login" ? "Welcome back" : "Create an account"}
-          </DialogTitle>
-          <DialogDescription className="text-center">
-            {activeTab === "login" 
-              ? "Enter your credentials to access your account"
-              : "Fill in the details below to create your account"}
-          </DialogDescription>
-        </DialogHeader>
-        
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "login" | "signup")} className="w-full">
+        <Tabs
+          defaultValue={activeTab}
+          className="w-full"
+          onValueChange={(value) => setActiveTab(value as "login" | "signup")}
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Login</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>
           </TabsList>
-          
-          <TabsContent value="login" className="mt-4">
-            <LoginForm onSuccess={handleLoginSuccess} />
+          <TabsContent value="login">
+            <LoginForm onSuccess={handleLogin} />
           </TabsContent>
-          
-          <TabsContent value="signup" className="mt-4">
-            <SignUpForm onSuccess={handleSignupSuccess} />
+          <TabsContent value="signup">
+            <SignUpForm onSuccess={handleSignup} />
           </TabsContent>
         </Tabs>
       </DialogContent>

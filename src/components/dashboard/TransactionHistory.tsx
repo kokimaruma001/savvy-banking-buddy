@@ -4,9 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Search, ArrowDownUp, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown, PlusCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Transaction {
@@ -16,6 +15,10 @@ interface Transaction {
   amount: number;
   type: 'deposit' | 'withdrawal' | 'transfer';
   status: 'completed' | 'pending' | 'failed';
+}
+
+interface TransactionHistoryProps {
+  isNewUser?: boolean;
 }
 
 const MOCK_TRANSACTIONS: Transaction[] = [
@@ -77,8 +80,8 @@ const MOCK_TRANSACTIONS: Transaction[] = [
   }
 ];
 
-export default function TransactionHistory() {
-  const [transactions, setTransactions] = useState<Transaction[]>(MOCK_TRANSACTIONS);
+export default function TransactionHistory({ isNewUser = false }: TransactionHistoryProps) {
+  const [transactions, setTransactions] = useState<Transaction[]>(isNewUser ? [] : MOCK_TRANSACTIONS);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const { toast } = useToast();
@@ -117,6 +120,40 @@ export default function TransactionHistory() {
   const toggleSortDirection = () => {
     setSortDirection(sortDirection === 'desc' ? 'asc' : 'desc');
   };
+
+  if (isNewUser) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Transaction History</CardTitle>
+              <CardDescription>Start your financial journey by making your first transaction</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center justify-center py-12">
+          <div className="text-center space-y-6">
+            <div className="p-6 rounded-full bg-primary/10 mx-auto">
+              <PlusCircle className="h-12 w-12 text-primary" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-medium">No Transactions Yet</h3>
+              <p className="text-muted-foreground max-w-md mx-auto">
+                Your transaction history will appear here once you start making deposits, 
+                withdrawals, or transfers.
+              </p>
+            </div>
+            <div className="space-x-4">
+              <Button variant="default" onClick={() => fetchTransactions()}>
+                View Demo Transactions
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full">

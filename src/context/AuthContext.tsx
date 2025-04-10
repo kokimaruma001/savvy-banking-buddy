@@ -5,6 +5,7 @@ type User = {
   id: string;
   name: string;
   email: string;
+  hasHistory?: boolean; // Added to track if the user is new or returning
 } | null;
 
 interface AuthContextType {
@@ -36,11 +37,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Login function
   const login = async (email: string, password: string): Promise<void> => {
     // This would typically connect to your authentication service
-    // For demo purposes, we're just simulating a successful login
+    // For demo purposes, we're just simulating a successful login with history
     const mockUser = {
       id: '123',
       name: email.split('@')[0], // Use part of the email as a name
       email,
+      hasHistory: true // Existing users have history
     };
     
     // Store the user in localStorage
@@ -56,6 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       id: '123',
       name,
       email,
+      hasHistory: false // New users don't have history
     };
     
     // Store the user in localStorage

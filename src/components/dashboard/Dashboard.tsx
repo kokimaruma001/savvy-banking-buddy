@@ -11,16 +11,20 @@ import CardManagement from './CardManagement';
 import BankConnection from './BankConnection';
 import { useAuth } from "@/context/AuthContext";
 import { CreditCard, History, ArrowRightLeft, Receipt, Settings, Building, Link } from "lucide-react";
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const isNewUser = !user?.hasHistory; // We'll assume new users don't have transaction history
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}!</h1>
+        <h1 className="text-3xl font-bold mb-2">Welcome {isNewUser ? "" : "back"}, {user?.name}!</h1>
         <p className="text-muted-foreground">
-          Here's an overview of your finances and banking options.
+          {isNewUser 
+            ? "Let's get started with your financial journey."
+            : "Here's an overview of your finances and banking options."}
         </p>
       </div>
 
@@ -29,7 +33,7 @@ const Dashboard = () => {
         <FinancialInsights />
       </div>
 
-      <Tabs defaultValue="transactions" className="w-full">
+      <Tabs defaultValue={isNewUser ? "settings" : "transactions"} className="w-full">
         <TabsList className="grid grid-cols-2 md:grid-cols-7 w-full mb-8">
           <TabsTrigger value="transactions" className="flex items-center gap-2">
             <History className="h-4 w-4" />
@@ -64,7 +68,7 @@ const Dashboard = () => {
         </TabsList>
         
         <TabsContent value="transactions">
-          <TransactionHistory />
+          <TransactionHistory isNewUser={isNewUser} />
         </TabsContent>
         
         <TabsContent value="transfer">
