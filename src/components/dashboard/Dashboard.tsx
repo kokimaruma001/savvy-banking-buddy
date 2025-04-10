@@ -10,7 +10,7 @@ import AccountSettings from './AccountSettings';
 import CardManagement from './CardManagement';
 import BankConnection from './BankConnection';
 import { useAuth } from "@/context/AuthContext";
-import { CreditCard, History, ArrowRightLeft, Receipt, Settings, Bank, Link } from "lucide-react";
+import { CreditCard, History, ArrowRightLeft, Receipt, Settings, Building, Link } from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -52,7 +52,7 @@ const Dashboard = () => {
             <span className="md:hidden">Cards</span>
           </TabsTrigger>
           <TabsTrigger value="banks" className="flex items-center gap-2">
-            <Bank className="h-4 w-4" />
+            <Building className="h-4 w-4" />
             <span className="hidden md:inline">Bank Accounts</span>
             <span className="md:hidden">Banks</span>
           </TabsTrigger>

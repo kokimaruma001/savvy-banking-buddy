@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { Bank, Link, Shield, Trash2, CheckCircle, AlertTriangle } from "lucide-react";
+import { Building, Link, Shield, Trash2, CheckCircle, AlertTriangle } from "lucide-react";
 
 // Define form schema for connecting a bank account
 const bankFormSchema = z.object({
@@ -275,7 +274,7 @@ const BankConnection = () => {
       {bankAccounts.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-10">
-            <Bank className="h-16 w-16 text-muted-foreground mb-4" />
+            <Building className="h-16 w-16 text-muted-foreground mb-4" />
             <h3 className="text-xl font-medium mb-2">No Bank Accounts Connected</h3>
             <p className="text-muted-foreground text-center mb-4">
               Connect your bank account to enable fund transfers and bill payments.
@@ -293,7 +292,7 @@ const BankConnection = () => {
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <Bank className="h-5 w-5" />
+                    <Building className="h-5 w-5" />
                     {account.bankName} - {account.accountType.charAt(0).toUpperCase() + account.accountType.slice(1)}
                     {account.isPrimary && (
                       <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
