@@ -41,14 +41,20 @@ const Hero = () => {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Button 
-                size="lg" 
-                className="rounded-full group"
-                onClick={() => setShowAuthDialog(true)}
+              <AuthDialog 
+                showSignUp={true}
+                asChild
+                open={showAuthDialog}
+                onOpenChange={setShowAuthDialog}
               >
-                Get Started
-                <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="rounded-full group"
+                >
+                  Get Started
+                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </AuthDialog>
               <Button 
                 variant="outline" 
                 size="lg" 
@@ -141,11 +147,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
-      {/* Auth Dialog */}
-      <AuthDialog 
-        showSignUp={true}
-      />
     </section>
   );
 };

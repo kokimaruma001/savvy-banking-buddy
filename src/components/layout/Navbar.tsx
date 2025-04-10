@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -117,19 +118,35 @@ const Navbar = () => {
                 </DropdownMenu>
               ) : (
                 <>
-                  <Button 
+                  <AuthDialog 
                     variant="outline" 
                     className="rounded-full"
-                    onClick={() => handleOpenAuthDialog("login")}
+                    asChild
+                    showSignUp={false}
+                    open={authDialogOpen && activeAuthTab === "login"}
+                    onOpenChange={(open) => {
+                      if (open) setActiveAuthTab("login");
+                      setAuthDialogOpen(open);
+                    }}
                   >
-                    Log In
-                  </Button>
-                  <Button 
+                    <Button variant="outline" className="rounded-full">
+                      Log In
+                    </Button>
+                  </AuthDialog>
+                  <AuthDialog 
                     className="rounded-full"
-                    onClick={() => handleOpenAuthDialog("signup")}
+                    asChild
+                    showSignUp={true}
+                    open={authDialogOpen && activeAuthTab === "signup"}
+                    onOpenChange={(open) => {
+                      if (open) setActiveAuthTab("signup");
+                      setAuthDialogOpen(open);
+                    }}
                   >
-                    Sign Up
-                  </Button>
+                    <Button className="rounded-full">
+                      Sign Up
+                    </Button>
+                  </AuthDialog>
                 </>
               )}
             </div>
@@ -192,25 +209,41 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <Button 
+                    <AuthDialog 
                       variant="outline" 
                       className="w-full rounded-full"
-                      onClick={() => {
-                        handleOpenAuthDialog("login");
-                        setMobileMenuOpen(false);
+                      asChild
+                      showSignUp={false}
+                      open={authDialogOpen && activeAuthTab === "login"}
+                      onOpenChange={(open) => {
+                        if (open) {
+                          setActiveAuthTab("login");
+                          setMobileMenuOpen(false);
+                        }
+                        setAuthDialogOpen(open);
                       }}
                     >
-                      Log In
-                    </Button>
-                    <Button 
+                      <Button variant="outline" className="w-full rounded-full">
+                        Log In
+                      </Button>
+                    </AuthDialog>
+                    <AuthDialog 
                       className="w-full rounded-full"
-                      onClick={() => {
-                        handleOpenAuthDialog("signup");
-                        setMobileMenuOpen(false);
+                      asChild
+                      showSignUp={true}
+                      open={authDialogOpen && activeAuthTab === "signup"}
+                      onOpenChange={(open) => {
+                        if (open) {
+                          setActiveAuthTab("signup");
+                          setMobileMenuOpen(false);
+                        }
+                        setAuthDialogOpen(open);
                       }}
                     >
-                      Sign Up
-                    </Button>
+                      <Button className="w-full rounded-full">
+                        Sign Up
+                      </Button>
+                    </AuthDialog>
                   </>
                 )}
               </div>
@@ -218,11 +251,6 @@ const Navbar = () => {
           </div>
         )}
       </header>
-
-      {/* Auth Dialog */}
-      <AuthDialog 
-        showSignUp={activeAuthTab === "signup"}
-      />
     </>
   );
 };

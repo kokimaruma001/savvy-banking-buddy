@@ -16,6 +16,8 @@ interface AuthDialogProps {
   className?: string;
   children?: React.ReactNode;
   asChild?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export default function AuthDialog({
@@ -25,8 +27,10 @@ export default function AuthDialog({
   className,
   children,
   asChild = false,
+  open,
+  onOpenChange,
 }: AuthDialogProps) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"login" | "signup">(
     showSignUp ? "signup" : "login"
   );
@@ -35,10 +39,14 @@ export default function AuthDialog({
   const location = useLocation();
   const { toast } = useToast();
 
+  const isControlled = open !== undefined;
+  const isOpen = isControlled ? open : internalOpen;
+  const handleOpenChange = isControlled ? onOpenChange : setInternalOpen;
+
   const from = location.state?.from?.pathname || "/dashboard";
 
   const handleLoginSuccess = () => {
-    setOpen(false);
+    handleOpenChange?.(false);
     navigate(from);
     toast({
       title: "Welcome back!",
@@ -47,7 +55,7 @@ export default function AuthDialog({
   };
 
   const handleSignupSuccess = () => {
-    setOpen(false);
+    handleOpenChange?.(false);
     navigate(from);
     toast({
       title: "Account created!",
@@ -84,7 +92,7 @@ export default function AuthDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild={asChild}>
         <Button variant={variant} size={size} className={className}>
           {children || "Sign In / Sign Up"}

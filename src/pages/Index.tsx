@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -122,17 +121,23 @@ const Index = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="rounded-full group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/20"
-                  onClick={() => setShowAuthDialog(true)}
+                <AuthDialog 
+                  showSignUp={true}
+                  asChild
+                  open={showAuthDialog}
+                  onOpenChange={setShowAuthDialog}
                 >
-                  <span className="absolute inset-0 bg-white/20 transform -translate-x-full hover:translate-x-0 transition-transform duration-300 ease-out"></span>
-                  <span className="relative flex items-center">
-                    Get Started for Free
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </span>
-                </Button>
+                  <Button 
+                    size="lg" 
+                    className="rounded-full group relative overflow-hidden bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/20"
+                  >
+                    <span className="absolute inset-0 bg-white/20 transform -translate-x-full hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                    <span className="relative flex items-center">
+                      Get Started for Free
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </Button>
+                </AuthDialog>
                 <Button 
                   variant="outline" 
                   size="lg" 
@@ -157,11 +162,6 @@ const Index = () => {
       </main>
       
       <Footer />
-      
-      {/* Auth Dialog */}
-      <AuthDialog 
-        showSignUp={true}
-      />
       
       {/* Schedule Dialog */}
       <ScheduleDialog
