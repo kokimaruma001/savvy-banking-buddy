@@ -17,6 +17,7 @@ const Dashboard = () => {
       </main>
       
       <Footer />
+      <Toaster />
     </div>
   );
 };

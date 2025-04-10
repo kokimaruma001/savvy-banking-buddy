@@ -7,8 +7,10 @@ import TransactionHistory from './TransactionHistory';
 import FundsTransfer from './FundsTransfer';
 import BillPayment from './BillPayment';
 import AccountSettings from './AccountSettings';
+import CardManagement from './CardManagement';
+import BankConnection from './BankConnection';
 import { useAuth } from "@/context/AuthContext";
-import { CreditCard, History, ArrowRightLeft, Receipt, Settings } from "lucide-react";
+import { CreditCard, History, ArrowRightLeft, Receipt, Settings, Bank, Link } from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -28,7 +30,7 @@ const Dashboard = () => {
       </div>
 
       <Tabs defaultValue="transactions" className="w-full">
-        <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full mb-8">
+        <TabsList className="grid grid-cols-2 md:grid-cols-7 w-full mb-8">
           <TabsTrigger value="transactions" className="flex items-center gap-2">
             <History className="h-4 w-4" />
             <span className="hidden md:inline">Transactions</span>
@@ -48,6 +50,11 @@ const Dashboard = () => {
             <CreditCard className="h-4 w-4" />
             <span className="hidden md:inline">Cards</span>
             <span className="md:hidden">Cards</span>
+          </TabsTrigger>
+          <TabsTrigger value="banks" className="flex items-center gap-2">
+            <Bank className="h-4 w-4" />
+            <span className="hidden md:inline">Bank Accounts</span>
+            <span className="md:hidden">Banks</span>
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
@@ -69,17 +76,11 @@ const Dashboard = () => {
         </TabsContent>
         
         <TabsContent value="cards">
-          <div className="rounded-lg border shadow bg-card">
-            <div className="p-6 flex items-center justify-center min-h-[300px]">
-              <div className="text-center">
-                <CreditCard className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-medium mb-2">Card Management Coming Soon</h3>
-                <p className="text-muted-foreground">
-                  Card management features are currently under development and will be available soon.
-                </p>
-              </div>
-            </div>
-          </div>
+          <CardManagement />
+        </TabsContent>
+        
+        <TabsContent value="banks">
+          <BankConnection />
         </TabsContent>
         
         <TabsContent value="settings">
