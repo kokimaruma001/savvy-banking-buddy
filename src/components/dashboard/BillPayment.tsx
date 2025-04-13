@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -217,7 +216,7 @@ export default function BillPayment() {
                   </span>
                 </div>
                 <div className="col-span-2 font-medium">
-                  ${bill.amount.toFixed(2)}
+                  R{bill.amount.toFixed(2)}
                 </div>
                 <div className="col-span-2">
                   {bill.status === 'paid' ? (
@@ -242,7 +241,7 @@ export default function BillPayment() {
       </CardContent>
       <CardFooter className="flex justify-between border-t p-4 bg-muted/20">
         <div className="font-medium">
-          Total Selected: ${calculateTotalAmount().toFixed(2)}
+          Total Selected: R{calculateTotalAmount().toFixed(2)}
         </div>
         <Button 
           onClick={payBills}
