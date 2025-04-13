@@ -207,7 +207,7 @@ export default function TransactionHistory({ isNewUser = false }: TransactionHis
                     <TableCell className="font-medium">{transaction.date}</TableCell>
                     <TableCell>{transaction.description}</TableCell>
                     <TableCell className={`font-medium ${transaction.amount < 0 ? 'text-destructive' : 'text-green-600'}`}>
-                      {transaction.amount < 0 ? '-' : '+'}${Math.abs(transaction.amount).toFixed(2)}
+                      {transaction.amount < 0 ? '-' : '+'}R{Math.abs(transaction.amount).toFixed(2)}
                     </TableCell>
                     <TableCell>
                       <Badge
