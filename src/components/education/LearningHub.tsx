@@ -5,12 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BookOpen, Clock, PlayCircle, Bookmark, CheckCircle, TrendingUp, DollarSign, CreditCard, Shield, PiggyBank, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import ToolDialog from './ToolDialog';
 
 // Fix the spinner import
 const Spinner = () => <Loader2 className="h-4 w-4 animate-spin" />;
 
 const LearningHub = () => {
   const [activeTab, setActiveTab] = useState("courses");
+  const [toolDialogOpen, setToolDialogOpen] = useState(false);
+  const [selectedToolId, setSelectedToolId] = useState<number | null>(null);
   
   const courses = [
     {
@@ -99,6 +102,11 @@ const LearningHub = () => {
       icon: <CreditCard size={20} />,
     },
   ];
+
+  const handleOpenTool = (toolId: number) => {
+    setSelectedToolId(toolId);
+    setToolDialogOpen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -199,7 +207,7 @@ const LearningHub = () => {
         <TabsContent value="tools" className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool) => (
-              <Card key={tool.id} className="glass">
+              <Card key={tool.id} className="glass hover:shadow-lg transition-all duration-300 hover:translate-y-[-2px]">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold flex items-center gap-2">
                     {tool.icon}
@@ -208,7 +216,10 @@ const LearningHub = () => {
                   <CardDescription>{tool.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full">
+                  <Button 
+                    className="w-full" 
+                    onClick={() => handleOpenTool(tool.id)}
+                  >
                     Use Tool
                   </Button>
                 </CardContent>
@@ -217,6 +228,12 @@ const LearningHub = () => {
           </div>
         </TabsContent>
       </Tabs>
+      
+      <ToolDialog 
+        isOpen={toolDialogOpen} 
+        onClose={() => setToolDialogOpen(false)} 
+        toolId={selectedToolId}
+      />
     </div>
   );
 };
