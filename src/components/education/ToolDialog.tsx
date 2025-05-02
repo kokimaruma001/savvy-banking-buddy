@@ -21,7 +21,7 @@ const ToolDialog = ({ isOpen, onClose, toolId }: ToolDialogProps) => {
       case 3:
         return "Debt Payoff Calculator";
       default:
-        return "";
+        return "Financial Tool";
     }
   };
 

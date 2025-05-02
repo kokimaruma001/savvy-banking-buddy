@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { BookOpen, Clock, PlayCircle, Bookmark, CheckCircle, TrendingUp, DollarSign, CreditCard, Shield, PiggyBank, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ToolDialog from './ToolDialog';
+import CourseDialog from './CourseDialog';
 
 // Fix the spinner import
 const Spinner = () => <Loader2 className="h-4 w-4 animate-spin" />;
@@ -14,6 +15,8 @@ const LearningHub = () => {
   const [activeTab, setActiveTab] = useState("courses");
   const [toolDialogOpen, setToolDialogOpen] = useState(false);
   const [selectedToolId, setSelectedToolId] = useState<number | null>(null);
+  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
   
   const courses = [
     {
@@ -108,6 +111,11 @@ const LearningHub = () => {
     setToolDialogOpen(true);
   };
 
+  const handleOpenCourse = (course: any) => {
+    setSelectedCourse(course);
+    setCourseDialogOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -129,7 +137,7 @@ const LearningHub = () => {
         <TabsContent value="courses" className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
-              <Card key={course.id} className="glass">
+              <Card key={course.id} className="glass hover:shadow-lg transition-all duration-300 hover:translate-y-[-2px]">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">{course.title}</CardTitle>
@@ -163,7 +171,7 @@ const LearningHub = () => {
                   </div>
                 </CardContent>
                 <CardFooter className="justify-between">
-                  <Button>
+                  <Button onClick={() => handleOpenCourse(course)}>
                     <PlayCircle className="h-4 w-4 mr-2" />
                     Start Course
                   </Button>
@@ -233,6 +241,12 @@ const LearningHub = () => {
         isOpen={toolDialogOpen} 
         onClose={() => setToolDialogOpen(false)} 
         toolId={selectedToolId}
+      />
+      
+      <CourseDialog
+        isOpen={courseDialogOpen}
+        onClose={() => setCourseDialogOpen(false)}
+        course={selectedCourse}
       />
     </div>
   );
