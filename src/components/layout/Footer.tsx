@@ -1,7 +1,41 @@
+
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Github, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
+  // Social media URLs
+  const socialLinks = {
+    facebook: "https://facebook.com",
+    twitter: "https://twitter.com",
+    instagram: "https://instagram.com",
+    linkedin: "https://linkedin.com"
+  };
+
+  // Quick links mapping with proper routes
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Education', path: '/education' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
+  // Services links mapping
+  const serviceLinks = [
+    { name: 'Financial Coaching', path: '/services/coaching' },
+    { name: 'Budgeting Tools', path: '/services/budgeting' },
+    { name: 'Fraud Detection', path: '/services/fraud-detection' },
+    { name: 'Investment Guidance', path: '/services/investments' },
+    { name: 'Financial Education', path: '/education' }
+  ];
+
+  // Privacy policy links
+  const policyLinks = [
+    { name: 'Privacy Policy', path: '/privacy-policy' },
+    { name: 'Terms of Service', path: '/terms-of-service' },
+    { name: 'Cookie Policy', path: '/cookie-policy' }
+  ];
+
   return (
     <footer className="bg-gradient-to-br from-background to-secondary/50 pt-16 border-t">
       <div className="container mx-auto px-6 md:px-12">
@@ -21,16 +55,40 @@ const Footer = () => {
               Empowering your financial journey with personalized AI guidance, education, and tools to build a secure future.
             </p>
             <div className="flex items-center space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href={socialLinks.facebook} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
                 <Facebook size={18} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href={socialLinks.twitter} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+              >
                 <Twitter size={18} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href={socialLinks.instagram} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
                 <Instagram size={18} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href={socialLinks.linkedin} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <Linkedin size={18} />
               </a>
             </div>
@@ -40,11 +98,11 @@ const Footer = () => {
           <div>
             <h3 className="text-md font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              {['Home', 'Dashboard', 'Education', 'About Us', 'Contact'].map((item) => (
-                <li key={item} className="flex items-center">
+              {quickLinks.map((item) => (
+                <li key={item.name} className="flex items-center">
                   <ChevronRight size={14} className="text-primary mr-2" />
-                  <Link to="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {item}
+                  <Link to={item.path} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -55,11 +113,11 @@ const Footer = () => {
           <div>
             <h3 className="text-md font-semibold mb-6">Services</h3>
             <ul className="space-y-3">
-              {['Financial Coaching', 'Budgeting Tools', 'Fraud Detection', 'Investment Guidance', 'Financial Education'].map((item) => (
-                <li key={item} className="flex items-center">
+              {serviceLinks.map((item) => (
+                <li key={item.name} className="flex items-center">
                   <ChevronRight size={14} className="text-primary mr-2" />
-                  <Link to="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                    {item}
+                  <Link to={item.path} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -75,10 +133,16 @@ const Footer = () => {
                 Limpopo, SA 0873
               </li>
               <li className="text-muted-foreground">
-                <span className="font-medium text-foreground">Email:</span> support@savvy.com
+                <span className="font-medium text-foreground">Email:</span>{' '}
+                <a href="mailto:support@savvy.com" className="hover:text-primary transition-colors">
+                  support@savvy.com
+                </a>
               </li>
               <li className="text-muted-foreground">
-                <span className="font-medium text-foreground">Phone:</span> +27 (65) 894 5667
+                <span className="font-medium text-foreground">Phone:</span>{' '}
+                <a href="tel:+27658945667" className="hover:text-primary transition-colors">
+                  +27 (65) 894 5667
+                </a>
               </li>
             </ul>
           </div>
@@ -90,15 +154,15 @@ const Footer = () => {
             © {new Date().getFullYear()} Savvy. All rights reserved.
           </p>
           <div className="flex mt-4 md:mt-0 space-x-6">
-            <Link to="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Terms of Service
-            </Link>
-            <Link to="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Cookie Policy
-            </Link>
+            {policyLinks.map((item) => (
+              <Link 
+                key={item.name}
+                to={item.path} 
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
