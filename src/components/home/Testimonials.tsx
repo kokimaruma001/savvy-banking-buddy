@@ -1,35 +1,34 @@
-
 import { useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 
 const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      content: "Savvy has completely transformed how I manage my finances. The AI-powered insights helped me save an extra $400 each month that I didn't even know I was wasting!",
-      author: "Sarah Johnson",
-      position: "Marketing Director",
+      content: "I finally understand what all those bank fees mean! Savvy explained it in a way that actually made sense. Found out I was paying R85 a month I didn't need to.",
+      author: "Thandi M.",
+      position: "Teacher, Johannesburg",
       avatar: "https://i.pravatar.cc/150?img=1"
     },
     {
       id: 2,
-      content: "As someone who knew nothing about investing, the educational resources and personalized guidance gave me the confidence to start building my portfolio. The results speak for themselves.",
-      author: "Michael Chen",
-      position: "Software Engineer",
+      content: "I always felt anxious about money stuff. Now I can ask questions without feeling judged. It's like having a financially-savvy friend who explains things calmly.",
+      author: "Sipho K.",
+      position: "Store Manager, Durban",
       avatar: "https://i.pravatar.cc/150?img=2"
     },
     {
       id: 3,
-      content: "The fraud detection feature saved me from a major headache when it caught suspicious activity on my account within minutes. The immediate notification allowed me to prevent any damage.",
-      author: "Emma Rodriguez",
-      position: "Small Business Owner",
+      content: "My husband and I used to argue about our budget. Savvy helped us see where our money was actually going. No more guessing, no more fights!",
+      author: "Lerato N.",
+      position: "Nurse, Pretoria",
       avatar: "https://i.pravatar.cc/150?img=3"
     },
     {
       id: 4,
-      content: "I've tried many budgeting apps, but Savvy's intuitive design and smart categorization of expenses has made it the only financial tool I need. Truly life-changing.",
-      author: "David Kim",
-      position: "Healthcare Professional",
+      content: "I was scared to look at my bank statements. Now I actually understand them. Savvy doesn't make you feel stupid for asking basic questions.",
+      author: "James P.",
+      position: "Freelancer, Cape Town",
       avatar: "https://i.pravatar.cc/150?img=4"
     }
   ];
@@ -40,7 +39,7 @@ const Testimonials = () => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const { current } = scrollRef;
-      const scrollAmount = 340; // Width of a card + gap
+      const scrollAmount = 340;
       
       if (direction === 'left') {
         current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -56,58 +55,58 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-secondary/20 to-background">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute right-[10%] top-[20%] w-[30%] h-[30%] rounded-full bg-blue-100/30 blur-3xl" />
-        <div className="absolute left-[5%] bottom-[10%] w-[20%] h-[20%] rounded-full bg-primary/5 blur-3xl" />
-      </div>
-      
+    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-secondary/10 to-background">
       <div className="container mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-          <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Success Stories
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            Real people, real results
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            What Our <span className="text-gradient">Users Say</span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            People like you are feeling more confident about money
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Join thousands of satisfied users who have transformed their financial futures with our platform.
+          <p className="text-muted-foreground">
+            No financial experts here — just everyday South Africans who wanted to understand their finances better.
           </p>
         </div>
         
-        {/* Testimonial Carousel Control */}
+        {/* Carousel Controls */}
         <div className="relative">
           <div className="flex justify-end space-x-3 mb-6">
             <button 
               onClick={() => scroll('left')} 
-              className="p-2 rounded-full bg-white shadow-sm hover:bg-secondary transition-colors"
+              className="p-3 rounded-full bg-card border border-border/50 shadow-soft hover:bg-secondary/50 transition-colors"
               disabled={scrollPosition <= 0}
+              aria-label="Previous testimonial"
             >
-              <ChevronLeft className="text-primary" />
+              <ChevronLeft className="h-5 w-5 text-foreground" />
             </button>
             <button 
               onClick={() => scroll('right')} 
-              className="p-2 rounded-full bg-white shadow-sm hover:bg-secondary transition-colors"
+              className="p-3 rounded-full bg-card border border-border/50 shadow-soft hover:bg-secondary/50 transition-colors"
               disabled={scrollPosition >= (testimonials.length - 1) * 340}
+              aria-label="Next testimonial"
             >
-              <ChevronRight className="text-primary" />
+              <ChevronRight className="h-5 w-5 text-foreground" />
             </button>
           </div>
           
           {/* Testimonial Carousel */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto gap-6 pb-6 hide-scrollbar snap-x snap-mandatory"
+            className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {testimonials.map((testimonial) => (
               <div 
                 key={testimonial.id}
-                className="glass min-w-[300px] max-w-xs flex-shrink-0 p-6 rounded-xl shadow-soft animate-fade-in snap-start"
-                style={{ animationDelay: `${0.1 * testimonial.id}s` }}
+                className="bg-card min-w-[320px] max-w-sm flex-shrink-0 p-6 rounded-2xl border border-border/50 shadow-soft snap-start"
               >
+                {/* Quote Icon */}
+                <div className="mb-4">
+                  <Quote className="h-8 w-8 text-primary/20" />
+                </div>
+                
                 {/* Stars */}
                 <div className="flex items-center mb-4 text-amber-500">
                   {[...Array(5)].map((_, i) => (
@@ -116,19 +115,19 @@ const Testimonials = () => {
                 </div>
                 
                 {/* Testimonial Content */}
-                <blockquote className="text-foreground mb-6">
+                <blockquote className="text-foreground mb-6 leading-relaxed">
                   "{testimonial.content}"
                 </blockquote>
                 
                 {/* Author */}
-                <div className="flex items-center">
+                <div className="flex items-center pt-4 border-t border-border/50">
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.author}
                     className="w-12 h-12 rounded-full mr-4 object-cover"
                   />
                   <div>
-                    <h4 className="font-semibold">{testimonial.author}</h4>
+                    <h4 className="font-semibold text-foreground">{testimonial.author}</h4>
                     <p className="text-sm text-muted-foreground">{testimonial.position}</p>
                   </div>
                 </div>
