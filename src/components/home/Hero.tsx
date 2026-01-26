@@ -1,13 +1,19 @@
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, MessageCircle, Shield, Clock, ChevronDown } from 'lucide-react';
 import AuthDialog from '../auth/AuthDialog';
 
 const Hero = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   
+  const scrollToGuidedPaths = () => {
+    const section = document.getElementById('guided-paths');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const scrollToHowItWorks = () => {
     const howItWorksSection = document.getElementById('how-it-works');
     if (howItWorksSection) {
@@ -16,135 +22,107 @@ const Hero = () => {
   };
   
   return (
-    <section className="min-h-screen pt-32 pb-16 overflow-hidden relative">
-      {/* Background Elements */}
+    <section className="min-h-[90vh] pt-28 pb-16 overflow-hidden relative flex items-center">
+      {/* Softer Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-[30%] -right-[10%] w-[60%] h-[80%] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute top-[50%] -left-[5%] w-[40%] h-[60%] rounded-full bg-blue-300/10 blur-3xl" />
+        <div className="absolute -top-[30%] -right-[10%] w-[50%] h-[70%] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute top-[50%] -left-[5%] w-[35%] h-[50%] rounded-full bg-blue-200/10 blur-3xl" />
       </div>
       
       <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Hero Text Content */}
-          <div className="max-w-lg">
-            <span className="inline-block animate-fade-in px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              AI-Powered Financial Freedom
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              Your Intelligent
-              <span className="text-gradient"> Financial </span>
-              Assistant
-            </h1>
-            <p className="text-muted-foreground text-lg mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Personalized financial coaching, automated budgeting, fraud detection, and gamified learning - all in one elegant platform designed for your success.
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <AuthDialog 
-                showSignUp={true}
-                asChild
-                open={showAuthDialog}
-                onOpenChange={setShowAuthDialog}
-              >
-                <Button 
-                  size="lg" 
-                  className="rounded-full group"
-                >
-                  Get Started
-                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </AuthDialog>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="rounded-full"
-                onClick={scrollToHowItWorks}
-              >
-                How It Works
-              </Button>
-            </div>
-            
-            {/* Trust Indicators */}
-            <div className="mt-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <p className="text-sm text-muted-foreground mb-4">Trusted by thousands of users worldwide</p>
-              <div className="flex items-center space-x-6">
-                <img src="https://via.placeholder.com/80x30?text=Logo1" alt="Partner logo" className="h-8 opacity-70 hover:opacity-100 transition-opacity" />
-                <img src="https://via.placeholder.com/80x30?text=Logo2" alt="Partner logo" className="h-8 opacity-70 hover:opacity-100 transition-opacity" />
-                <img src="https://via.placeholder.com/80x30?text=Logo3" alt="Partner logo" className="h-8 opacity-70 hover:opacity-100 transition-opacity" />
-              </div>
-            </div>
-          </div>
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Trust Badge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-8"
+          >
+            <Shield className="h-4 w-4" />
+            Your money stays in your control — always
+          </motion.div>
+
+          {/* Main Headline */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6"
+          >
+            Understand your money.
+            <span className="block text-gradient mt-2">In plain English.</span>
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed"
+          >
+            Stop wondering where your money goes. Get friendly, jargon-free advice 
+            that actually makes sense — whether you're saving, budgeting, or just trying to understand your bank fees.
+          </motion.p>
           
-          {/* Hero Image/Illustration */}
-          <div className="relative">
-            <div className="relative w-full aspect-square max-w-md mx-auto animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-blue-400/20 rounded-full blur-3xl opacity-70"></div>
-              <div className="relative glass rounded-2xl overflow-hidden shadow-soft border border-white/20 h-full w-full animate-float">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary to-blue-600"></div>
-                
-                {/* Mock dashboard UI */}
-                <div className="p-6">
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold">Financial Overview</h3>
-                    <p className="text-sm text-muted-foreground">Your accounts are performing well</p>
-                  </div>
-                  
-                  {/* Balance Card */}
-                  <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-primary to-blue-600 text-white">
-                    <p className="text-sm font-medium opacity-80">Total Balance</p>
-                    <h4 className="text-2xl font-bold my-2">R12,345.67</h4>
-                    <div className="flex justify-between text-xs opacity-80">
-                      <span>+2.4% from last month</span>
-                      <span>Updated just now</span>
-                    </div>
-                  </div>
-                  
-                  {/* Account Cards */}
-                  <div className="space-y-3">
-                    {[
-                      { name: 'Checking Account', balance: 'R4,250.00', color: 'bg-blue-100' },
-                      { name: 'Savings Account', balance: 'R8,095.67', color: 'bg-green-100' },
-                      { name: 'Investment Account', balance: 'R5,621.33', color: 'bg-purple-100' }
-                    ].map((account, idx) => (
-                      <div key={idx} className={`p-3 rounded-lg flex justify-between items-center ${account.color}`}>
-                        <div>
-                          <p className="font-medium text-sm">{account.name}</p>
-                          <p className="text-xs text-muted-foreground">**** 4567</p>
-                        </div>
-                        <span className="font-semibold">{account.balance}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating Elements */}
-            <div className="absolute top-10 -right-10 glass p-4 rounded-lg shadow-soft animate-float" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-green-500"></div>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Fraud Protection</p>
-                  <p className="text-xs text-muted-foreground">Always active</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-5 -left-5 glass p-4 rounded-lg shadow-soft animate-float" style={{ animationDelay: '0.7s' }}>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-primary"></div>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Smart Insights</p>
-                  <p className="text-xs text-muted-foreground">AI-powered</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* CTA Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
+          >
+            <AuthDialog 
+              showSignUp={true}
+              asChild
+              open={showAuthDialog}
+              onOpenChange={setShowAuthDialog}
+            >
+              <Button 
+                size="lg" 
+                className="rounded-full group text-base px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Ask a Money Question
+                <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </AuthDialog>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="rounded-full text-base px-8 py-6"
+              onClick={scrollToHowItWorks}
+            >
+              How it works
+            </Button>
+          </motion.div>
+
+          {/* Reassurance Microcopy */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground mb-12"
+          >
+            <span className="flex items-center gap-1.5">
+              <Clock className="h-4 w-4" />
+              Takes under a minute
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Shield className="h-4 w-4" />
+              No bank login required
+            </span>
+          </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            onClick={scrollToGuidedPaths}
+            className="inline-flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+          >
+            <span className="text-sm mb-2">Not sure where to start?</span>
+            <ChevronDown className="h-5 w-5 animate-bounce" />
+          </motion.button>
         </div>
       </div>
     </section>
